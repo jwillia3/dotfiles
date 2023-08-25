@@ -1,0 +1,9 @@
+{
+    "shell_cmd": "make -s",
+    "file_regex": "([a-zA-Z0-9_/.-]+)[:]([0-9]+):?([0-9]+)?",
+    "selector": "source.c",
+    "syntax": "Packages/Makefile/Make Output.sublime-syntax",
+    "keyfiles": ["*.c"],
+    "word_wrap": "false",
+    "quiet": true,
+}

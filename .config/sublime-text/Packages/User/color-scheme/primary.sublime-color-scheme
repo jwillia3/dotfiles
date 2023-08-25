@@ -1,0 +1,45 @@
+{
+    "name": "Primary",
+    "globals": {
+        "background": "rgb(216, 218, 220)",
+        "foreground": "#05a",
+        "caret": "crimson",
+        "selection": "wheat",
+        "highlight": "orange",
+        "line_highlight": "white"
+    },
+    "rules": [
+        {
+            "scope": "comment",
+            "foreground": "crimson",
+            "font_style": ""
+        },
+        {
+            "scope": "constant, string",
+            "foreground": "#b75301",
+            "font_style": ""
+        },
+        {
+            "scope": "keyword, storage",
+            "font_style": "bold"
+        },
+        {
+            "scope": "invalid",
+            "background": "yellow",
+        },
+        {
+            "scope": "keyword.operator, punctuation",
+        },
+        {
+            "scope": "entity, entity.name.function",
+            "font_style": "bold"
+        },
+        {
+            "scope": "variable.function, support.function",
+        },
+        {
+            "scope": "meta.function.parameters",
+            "font_style": ""
+        },
+    ]
+}

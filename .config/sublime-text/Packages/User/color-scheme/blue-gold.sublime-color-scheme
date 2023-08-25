@@ -1,0 +1,46 @@
+{
+    "name": "Olde Blue Gold",
+    "globals": {
+        "background": "#fff",
+        "foreground": "#333",
+        "caret": "crimson",
+        "selection": "wheat",
+        "highlight": "orange",
+        "line_highlight": "#eee"
+    },
+    "rules": [
+        {
+            "scope": "comment",
+            "foreground": "#833",
+            "font_style": ""
+        },
+        {
+            "scope": "constant, string",
+            "foreground": "#b75",
+            "font_style": ""
+        },
+        {
+            "scope": "keyword, storage",
+            "foreground": "#06a",
+            "font_style": ""
+        },
+        {
+            "scope": "invalid",
+            "background": "yellow",
+        },
+        {
+            "scope": "keyword.operator, punctuation",
+        },
+        {
+            "scope": "entity, entity.name.function",
+            "font_style": "bold"
+        },
+        {
+            "scope": "variable.function, support.function",
+        },
+        {
+            "scope": "meta.function.parameters",
+            "font_style": "italic"
+        },
+    ]
+}

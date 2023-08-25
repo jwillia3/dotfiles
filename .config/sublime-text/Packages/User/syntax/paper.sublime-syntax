@@ -1,0 +1,104 @@
+%YAML 1.2
+name: Paper Programming Language
+file_extensions: [paper]
+scope: source.paper
+variables:
+  resv: '\b(?:fun|do|class|let|while|if|else|return|true|false|null|if)\b'
+  id: '(?:(?!{{resv}})[a-zA-Z0-9_]+)'
+
+contexts:
+  main:
+    - include: space
+    - include: strings
+    - include: operators
+    - include: punctuation
+    - include: call
+    - include: class
+    - include: fun
+    - include: resv
+    - include: ids
+
+  space:
+    - match: '\s+'
+    - match: '#.*'
+      scope: comment.paper
+
+  strings:
+    - match: '"'
+      scope: string.paper
+      push: string
+    - match: "'"
+      scope: string.paper
+      push: singlequote
+
+  string:
+    - meta_scope: string.paper
+    - match: '\\x[0-9A-Fa-f]{2}'
+      scope: constant.character.escape.paper
+    - match: '\\x'
+      scope: invalid.paper
+    - match: '\\.'
+      scope: constant.character.escape.paper
+    - match: '"'
+      pop: true
+
+  singlequote:
+    - meta_scope: string.paper
+    - match: '\\x[0-9A-Fa-f]{2}'
+      scope: constant.character.escape.paper
+    - match: '\\x'
+      scope: invalid.paper
+    - match: '\\.'
+      scope: constant.character.escape.paper
+    - match: "'"
+      pop: true
+
+  operators:
+    - match: '(?:\.\.\.|==|!=|<=|>=|[-+*/%<>=!])'
+      scope: keyword.operator.paper
+
+  punctuation:
+    - match: '[\[\]{}(),.:;=]'
+      scope: punctuation.paper
+
+  resv:
+    - match: '{{resv}}'
+      scope: keyword.paper
+
+  call:
+    - match: '({{id}})(\()'
+      captures:
+        1: variable.function.paper
+        2: punctuation.paper
+
+  ids:
+    - match: '{{id}}'
+      scope: variable.paper
+
+  class:
+    - match: '(class)\s+({{id}})'
+      captures:
+        1: keyword.paper
+        2: entity.name.class.paper
+  fun:
+    - match: '(fun)\s*(\b{{id}})?\s*(\()?'
+      captures:
+        1: keyword.paper
+        2: entity.name.function.paper
+        3: punctuation.paper
+      push: params
+    - match: '(do\b)\s*(\()?'
+      captures:
+        1: keyword.paper
+        3: punctuation.paper
+      push: params
+  params:
+    - meta_scope: 'meta.function.parameters.paper'
+    - match: '{{id}}'
+      scope: 'variable.parameter.paper'
+    - match: '\)'
+      scope: 'punctuation.paper'
+      pop: 1
+    - include: main
+
+
