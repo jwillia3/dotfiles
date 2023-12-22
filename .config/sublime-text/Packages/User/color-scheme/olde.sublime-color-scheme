@@ -1,0 +1,24 @@
+{
+    "name": "Olde",
+    "globals": {
+        "background": "floralwhite",
+        "background": "ghostwhite",
+        "background": "whitesmoke",
+        "foreground": "steelblue",
+        "caret": "red",
+        "selection": "aliceblue",
+        "highlight": "orange",
+    },
+    "rules": [
+        {"scope": "comment", "foreground": "grey"},
+        {"scope": "constant", "foreground": "firebrick"},
+        {"scope": "entity", "foreground": "firebrick"},
+        {"scope": "invalid", "foreground": "red", "background": "lightblue"},
+        {"scope": "keyword", "font_style": "bold"},
+        {"scope": "meta.function.parameters", "font_style": "italic"},
+        {"scope": "punctuation", },
+        {"scope": "storage", "font_style": "bold"},
+        {"scope": "string", "foreground": "firebrick"},
+        {"scope": "variable.function", "font_style": "bold"},
+    ]
+}

@@ -1,28 +1,28 @@
 {
     "name": "Primary",
     "globals": {
-        "background": "#222",
-        "foreground": "#666",
+        "background": "#333",
+        "foreground": "#aaa",
         "caret": "crimson",
-        "selection": "#111",
+        "selection": "#555",
         "highlight": "orange",
         "line_highlight": "#333"
     },
     "rules": [
         {
             "scope": "comment",
-            "foreground": "#833",
+            "foreground": "#b88",
             "font_style": ""
         },
         {
             "scope": "constant, string",
-            "foreground": "#853",
+            "foreground": "#b96",
             "font_style": ""
         },
         {
             "scope": "keyword, storage",
             "font_style": "bold",
-            "foreground": "#bbb"
+            "foreground": "#69b"
         },
         {
             "scope": "invalid",
@@ -40,7 +40,7 @@
         },
         {
             "scope": "meta.function.parameters",
-            "font_style": "italic"
+            // "font_style": "italic"
         },
     ]
 }

@@ -1,8 +1,8 @@
 {
     "name": "Olde Blue Gold",
     "globals": {
-        "background": "#fff",
-        "foreground": "#333",
+        "background": "#eee",
+        "foreground": "#666",
         "caret": "crimson",
         "selection": "wheat",
         "highlight": "orange",

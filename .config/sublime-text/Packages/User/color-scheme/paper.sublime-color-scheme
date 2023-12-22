@@ -1,0 +1,23 @@
+{
+    "name": "Paper",
+    "globals": {
+        "background": "white",
+        "foreground": "#000",
+        "caret": "red",
+        "selection": "aliceblue",
+        "highlight": "orange",
+        "line_highlight": "#f8f8f8",
+    },
+    "rules": [
+        {"scope": "comment", "foreground": "firebrick"},
+        {"scope": "constant", "foreground": ""},
+        {"scope": "entity", "foreground": "darkblue"},
+        {"scope": "invalid", "foreground": "red", "background": "lightblue"},
+        {"scope": "keyword" },
+        {"scope": "meta.function.parameters"},
+        {"scope": "punctuation", },
+        {"scope": "storage", },
+        {"scope": "string", "foreground": "rebeccapurple"},
+        {"scope": "variable.function", },
+    ]
+}

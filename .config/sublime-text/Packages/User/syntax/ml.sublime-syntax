@@ -4,23 +4,25 @@ file_extensions: [ml,pml,paper]
 scope: source.ml
 variables:
   op: '[!$%&*+\-./:<=>?@^|~]+'
-  resv: '\b(?:case|\||->|let|rec|and|in|--|where|if|then|else|fn|or|raise|handle|datatype|infixl|infixr|::|true|false|!)\b'
-  id: "(?!\b{{resv}}\b)(?:[a-zA-Z0-9_][a-zA-Z0-9_'!?]*)"
+  resv: '\b(?:case|\||->|let|rec|and|in|--|where|if|then|else|fn|raise|handle|datatype|infixl|infixr|::|true|false|with|forall|!)\b'
+  id: "(?!\b{{resv}}\b)(?:[a-zA-Z0-9_][a-zA-Z0-9_'?]*)"
+  cap: "[A-Z][a-zA-Z0-9_'?]*"
 contexts:
   main:
     - include: space
     - include: strings
-    - match: '\b(datatype) (\()({{id}})(\)) ({{id}})'
-      captures:
-        1:  keyword.ml
-        2:  punctuation.ml
-        3:  entity.name.parameter.type.ml
-        4:  punctuation.ml
-        5:  entity.name.type.ml
-    - match: '\b(datatype) ({{id}})'
+
+    - match:  '\b(datatype|with) ({{id}})'
       captures:
         1:  keyword.ml
         2:  entity.name.type.ml
+
+
+    - match:  '\b(forall) ((?:{{id}}| )*)'
+      captures:
+        1:  keyword.ml
+        2:  meta.function.parameters.ml
+
 
     # When let or rec are on a line of their own.
     - match:  '\blet(?: rec)?\n'
@@ -30,26 +32,38 @@ contexts:
       captures:
         1:    keyword.ml
         2:    entity.name.function.ml
-      push:   params
-    - match:  '(\||or)' # Case rule
+      push:   let
+
+    - match: '\bfn\b'
       scope:  keyword.ml
-      push:   case_params
-    - match:  '\b--\b'
-      scope:  keyword.ml
-      push:   params
+      push:   fn
+
     - match:  '\bhandle\b'
       scope:  keyword.ml
       push:   params
+
+    - match:  '\|'
+      scope:  keyword.ml
+      push:   params
+
     - match:  '\bref\b|!|:='
       scope:  keyword.ml
+
     - match:  '{{resv}}'
       scope:  keyword.ml
-    - match:  '[()\[\],;]'
+
+    - match:  '[()\[\]\{\}.,;]'
       scope:  punctuation.ml
+
+    - match:  '{{cap}}'
+      scope:  constant.constructor.ml
+
     - match:  '{{id}}'
       scope:  variable.ml
+
     - match:  '{{op}}'
       scope:  keyword.operator.ml
+
     - match:  '`{{id}}'
       scope:  keyword.ml
 
@@ -70,40 +84,53 @@ contexts:
     - match: ''
       push: params
 
+  let:
+    - meta_scope: meta.function.ml
+    - match: ' .*::'
+      pop: true
+    - match: ''
+      push: params
+
+  typing:
+    - meta_scope: meta.function.type.ml
+    - match: '='
+      set: params
+
   params:
     - meta_scope: meta.function.ml
     - include: strings
+
     - match: '=|->|\|'
       scope: keyword.ml
       pop:  2
-    - match: '\b--\b'
-      scope:  keyword.ml
-      set:  params
+
+    - match:  '{'
+      scope:  punctuation.ml
+      push:   record_params
+
     - match: '\n'
       pop: 2
-    - match: '[A-Z][A-Z_]*'
+
+    - match: "{{cap}}"
       scope:  constant.constructor.ml
+
     - match: '({{id}})|({{op}})'
       scope: meta.function.parameters.ml
+
     - include: space
     - match: '.'
+
+  record_params:
+    - match:  '({{id}}) *(=)'
+      captures:
+        1: meta.function.parameters.ml
+        2: punctuation.ml
+    - include: params
 
   case_params:
     - match:  '\n'
       pop:    2
     - include: params
-
-  datatype:
-    - match: \(
-      push:
-        - match: \)
-          meta_scope: meta.type.parameters.ml
-          pop: true
-    - match: '{{id}}'
-      scope: entity.name.type.ml
-    - match: '='
-      scope: operator.ml
-      pop: true
 
   space:
     - match: '\s+'
