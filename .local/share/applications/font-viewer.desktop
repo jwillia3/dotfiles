@@ -1,0 +1,9 @@
+[Desktop Entry]
+Icon=font-viewer
+Type=Application
+Exec=/home/jlw/.local/bin/run-font-viewer
+NoDisplay=false
+
+Name=Font Viewer
+GenericName=Font Viewer
+Categories=Graphics;Utility

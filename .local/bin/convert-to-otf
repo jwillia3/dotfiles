@@ -1,0 +1,11 @@
+#/bin/sh
+# Usage: convert-to-otf [FILES...]
+# Files should be Type1 .pfb files
+
+convert() {
+    fontforge -lang=ff -c 'Open($1); Generate($2); Close();' $1 $1.otf
+}
+
+for i in $*
+do convert $i
+done

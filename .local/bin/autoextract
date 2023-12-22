@@ -1,0 +1,43 @@
+#!/usr/local/bin/bash
+
+DUMP=$HOME/Downloads
+file="$1"
+dir=
+dst=
+
+
+create-dir() {
+    if echo "$dir" | grep -q '/$'
+    then
+        # The archive will create the directory itself.
+        dst=$DUMP
+    else
+        dir=$(echo "$file" | grep -oE '^[^.]*')
+        dst=$DUMP/$dir
+        echo "autoextract: Creating Directory: $dst"
+        mkdir $dst
+    fi
+}
+
+
+if echo "$file" | grep -qE '[.](gz|bz2|tgz|tbz)$|[.]tar[.]'
+then
+
+    dir=$(tar tf "$file" | sort | head -n1)
+    create-dir
+    tar xkf "$file" -C$dst
+
+elif echo "$file" | grep -qyE '[.](zip)$'
+then
+
+    dir=$(unzip -l "$file" | awk 'NR == 4 && $4 ~ /\/$/ {print $4}')
+    create-dir
+    unzip -d$dst "$file"
+
+fi
+
+
+if [ -e $dst ]
+then
+    xdg-open $dst & disown
+fi

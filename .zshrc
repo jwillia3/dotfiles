@@ -11,8 +11,7 @@ autoload -Uz compinit
 compinit
 
 PS1='%1d%# '
-export PATH="$PATH:$HOME/.local/bin"
 
 alias clear="printf '\e[H\e[2J\e[3J'"
-alias ls='ls -FG'
+alias ls='ls -FGv,'
 alias xclip='xclip -selection clipboard'
